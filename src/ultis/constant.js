@@ -1,10 +1,12 @@
 export const path = {
   HOME: "/*",
+  HOME__PAGE: ":page",
   LOGIN: "login",
   CHO_THUE_CAN_HO: "cho-thue-can-ho",
   CHO_THUE_PHONG_TRO: "cho-thue-phong-tro",
   MAT_BANG: "mat-bang",
   NHA_CHO_THUE: "nha-cho-thue",
+  DETAIL_POST__TITLE_POSTID: 'chi-tiet/:title/:postId'
 };
 
 export const text = {
@@ -15,17 +17,17 @@ export const text = {
 
 export const location = [
   {
-    id: 'hcm',
+    id: "hcm",
     name: "Phòng trọ Hồ Chí Minh",
     image: "https://phongtro123.com/images/location_hcm.jpg",
   },
   {
-    id: 'hn',
+    id: "hn",
     name: "Phòng trọ Hà Nội",
     image: "https://phongtro123.com/images/location_hn.jpg",
   },
   {
-    id: 'dn',
+    id: "dn",
     name: "Phòng trọ Đà Nẵng",
     image: "https://phongtro123.com/images/location_dn.jpg",
   },
