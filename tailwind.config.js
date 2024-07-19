@@ -23,6 +23,9 @@ module.exports = {
       flex: {
         3: "3 3 0%",
       },
+      PointerEvent: {
+        all: "all",
+      },
     },
   },
   plugins: [],

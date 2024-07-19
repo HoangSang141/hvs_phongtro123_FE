@@ -17,7 +17,6 @@ const Item = ({
   id,
 }) => {
   const [isHoverHeart, setIsHoverHeart] = useState(false);
-  const navigate = useNavigate();
   const handleStar = (star) => {
     let stars = [];
     for (let i = 0; i < +star; i++) {
@@ -40,7 +39,7 @@ const Item = ({
                   key={index}
                   src={i}
                   alt="preview"
-                  className="w-[130px] h-[120px] object-cover"
+                  className="w-[47%] h-[120px] object-cover"
                 />
               );
             })}
