@@ -1,36 +1,52 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: process.env.REACT_APP_SERVER_URL
-})
+  baseURL: process.env.REACT_APP_SERVER_URL,
+});
 
-instance.interceptors.request.use(function (config) {
+instance.interceptors.request.use(
+  function (config) {
     // Làm gì đó trước khi request dược gửi đi
-    const token = localStorage.getItem('persist:auth')
-    // console.log(token)
+    let token =
+      window.localStorage.getItem("persist:auth") &&
+      JSON.parse(window.localStorage.getItem("persist:auth"))?.token?.slice(
+        1,
+        -1
+      );
+    config.headers = {
+      authorization: token ? `Bearer ${token}` : null,
+    };
     return config;
-  }, function (error) {
+  },
+  function (error) {
     // Làm gì đó với lỗi request
-    console.log(error)
+    console.log(error);
     return Promise.reject(error);
-  });
+  }
+);
 
 // Thêm một bộ đón chặn request
-instance.interceptors.request.use(function (config) {
-  // Làm gì đó trước khi request dược gửi đi
-  // Gắn token vào header
-  return config;
-}, function (error) {
-  return Promise.reject(error);
-});
+instance.interceptors.request.use(
+  function (config) {
+    // Làm gì đó trước khi request dược gửi đi
+    // Gắn token vào header
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
 // Thêm một bộ đón chặn response
-instance.interceptors.response.use(function (response) {
-  // Refresh token
-  return response;
-}, function (error) {
-  // Bất kì mã trạng thái nào lọt ra ngoài tầm 2xx đều khiến hàm này được trigger\
-  // Làm gì đó với lỗi response
-  return Promise.reject(error);
-});
-export default instance
+instance.interceptors.response.use(
+  function (response) {
+    // Refresh token
+    return response;
+  },
+  function (error) {
+    // Bất kì mã trạng thái nào lọt ra ngoài tầm 2xx đều khiến hàm này được trigger\
+    // Làm gì đó với lỗi response
+    return Promise.reject(error);
+  }
+);
+export default instance;

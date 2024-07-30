@@ -3,8 +3,10 @@ import actionTypes from "../actions/actionTypes";
 const initState = {
   posts: [],
   msg: "",
-  count:0,
-  newPosts: []
+  count: 0,
+  newPosts: [],
+  postOfCurrent: [],
+  dataEdit: {},
 };
 const postReducer = (state = initState, action) => {
   switch (action.type) {
@@ -14,15 +16,25 @@ const postReducer = (state = initState, action) => {
         ...state,
         posts: action.posts || [],
         msg: action.msg || "",
-        count: action.count || 0
+        count: action.count || 0,
       };
-      case actionTypes.GET_NEW_POST:
+    case actionTypes.GET_NEW_POST:
       return {
         ...state,
         msg: action.msg || "",
-        newPosts: action.newPosts || []
+        newPosts: action.newPosts || [],
       };
-
+    case actionTypes.GET_POSTS_ADMIN:
+      return {
+        ...state,
+        msg: action.msg || "",
+        postOfCurrent: action.posts || [],
+      };
+    case actionTypes.EDIT_DATA:
+      return {
+        ...state,
+        dataEdit: action.dataEdit || {},
+      };
 
     default:
       return state;

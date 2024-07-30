@@ -7,7 +7,7 @@ export const register = (payload) => async (dispatch) => {
     if (response?.data.err === 0) {
       dispatch({
         type: actionTypes.REGISTER_SUCCESS,
-        dada: response.data.token,
+        data: response.data.token,
       });
     } else {
       dispatch({
@@ -29,7 +29,7 @@ export const login = (payload) => async (dispatch) => {
     if (response?.data.err === 0) {
       dispatch({
         type: actionTypes.LOGIN_SUCCESS,
-        dada: response.data.token,
+        data: response.data.token,
       });
     } else {
       dispatch({
