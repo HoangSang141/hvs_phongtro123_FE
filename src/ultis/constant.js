@@ -6,11 +6,15 @@ export const path = {
   CHO_THUE_PHONG_TRO: "cho-thue-phong-tro",
   MAT_BANG: "mat-bang",
   NHA_CHO_THUE: "nha-cho-thue",
-  DETAIL_POST__TITLE_POSTID: 'chi-tiet/:title/:postId',
-  SEARCH:'tim-kiem',
-  SYSTEM:'/he-thong/*',
-  CREATE_POST:'tao-moi-bai-dang',
-  MANAGE_POST:'quan-ly-bai-dang'
+  DETAIL_POST__TITLE_POSTID: "chi-tiet/:title/:postId",
+  SEARCH: "tim-kiem",
+  SYSTEM: "/he-thong/*",
+  CREATE_POST: "tao-moi-bai-dang",
+  MANAGE_POST: "quan-ly-bai-dang",
+  EDIT_ACCOUNT: "sua-thong-tin-ca-nhan",
+  CONTACT: "lien-he",
+  DETAIL: "/chi-tiet/",
+  DETAIL_ALL: 'chi-tiet/*'
 };
 
 export const text = {

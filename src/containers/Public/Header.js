@@ -17,7 +17,6 @@ const Header = () => {
   const [searchParams] = useSearchParams();
   const headerRef = useRef();
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const { currentData } = useSelector((state) => state.user);
   const [isShowMenu, setIsShowMenu] = useState(false);
   const goLogin = useCallback((flag) => {
     navigate(path.LOGIN, { state: { flag } });

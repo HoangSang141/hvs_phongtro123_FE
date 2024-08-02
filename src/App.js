@@ -6,9 +6,10 @@ import {
   Homepage,
   DetailPost,
   SearchDetail,
+  Contact
 } from "./containers/Public";
 import { path } from "./ultis/constant";
-import { CreatePost, System, ManagePost } from "./containers/System";
+import { CreatePost, System, ManagePost, EditAccount } from "./containers/System";
 import * as actions from "./store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -38,15 +39,17 @@ function App() {
           <Route path={path.MAT_BANG} element={<Rental />} />
           <Route path={path.NHA_CHO_THUE} element={<Rental />} />
           <Route path={path.SEARCH} element={<SearchDetail />} />
+          <Route path={path.CONTACT} element={<Contact />} />
           <Route
             path={path.DETAIL_POST__TITLE_POSTID}
             element={<DetailPost />}
           />
-          <Route path={"chi-tiet/*"} element={<DetailPost />} />
+          {/* <Route path={path.DETAIL_ALL} element={<DetailPost />} /> */}
         </Route>
         <Route path={path.SYSTEM} element={<System />}>
           <Route path={path.CREATE_POST} element={<CreatePost />} />
           <Route path={path.MANAGE_POST} element={<ManagePost />} />
+          <Route path={path.EDIT_ACCOUNT} element={<EditAccount />} />
         </Route>
       </Routes>
     </div>

@@ -1,10 +1,11 @@
 import React from "react";
-import nonAvatar from "../../assets/avatar.webp";
+import Avatar from "../../assets/avatar.webp";
 import { useSelector, useDispatch } from "react-redux";
 import menuSidebar from "../../ultis/menuSidebar";
 import { NavLink } from "react-router-dom";
 import * as actions from '../../store/actions'
 import {AiOutlineLogout} from 'react-icons/ai'
+import { blobToBase64 } from "../../ultis/Common/tobase64";
 
 const activeStyle =
   "hover:bg-gray-200 flex rounded-md items-center py-2 gap-2 font-bold bg-gray-200";
@@ -14,13 +15,14 @@ const notActiveStyle =
 const Sidebar = () => {
   const dispatch=useDispatch()
   const { currentData } = useSelector((state) => state.user);
+  // console.log(currentData)
 
   return (
     <div className="w-[256px] flex-none p-4 flex flex-col gap-6">
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <img
-            src={nonAvatar}
+            src={blobToBase64(currentData?.avatar) || Avatar}
             alt="avatar"
             className="w-12 h-12 object-cover rounded-full"
           />

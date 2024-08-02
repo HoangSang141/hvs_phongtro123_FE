@@ -5,8 +5,10 @@ import {
   BsBookmarkStarFill,
   BsChevronDown,
   BsCameraFill,
+  BsStopwatch,
+  BsHash,
 } from "react-icons/bs";
-import { HiOutlineLocationMarker } from "react-icons/hi";
+import { HiOutlineLocationMarker, HiLocationMarker } from "react-icons/hi";
 import { TbReportMoney } from "react-icons/tb";
 import { RiCrop2Line, RiHeartFill, RiHeartLine } from "react-icons/ri";
 import { MdHouseSiding, MdOutlineLibraryBooks } from "react-icons/md";
@@ -38,6 +40,9 @@ const icons = {
   BsChevronDown,
   ImBin,
   BsCameraFill,
+  HiLocationMarker,
+  BsStopwatch,
+  BsHash,
 };
 
 export default icons;
