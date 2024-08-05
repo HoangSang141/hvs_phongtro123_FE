@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPostsLimit } from "../../store/actions";
 import { Slider } from "../../components";
 import icons from "../../ultis/icons";
-import objToArr from "../../ultis/Common/objToArr";
+import {Boxinfo, RelatedPost} from '../../components';
+import { useNavigate, createSearchParams } from "react-router-dom";
+import { path } from "../../ultis/constant";
 
 const { HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch, BsHash } =
   icons;
@@ -12,10 +14,19 @@ const { HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch, BsHash } =
 const DetailPost = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
+  const navigate=useNavigate()
   const { posts } = useSelector((state) => state.post);
   useEffect(() => {
     postId && dispatch(getPostsLimit({ id: postId }));
   }, [postId]);
+  const handleFilterLabel=()=>{
+    const titleSearch=`Tìm kiếm tin đăng theo chuyên mục ${posts[0]?.labelData?.value}`
+    navigate({
+      pathname: `/${path.SEARCH }`,
+      search: createSearchParams({labelCode:posts[0]?.labelData?.code}).toString(),
+    },{state:{titleSearch}});
+    
+  }
   return (
     <div className="w-full flex gap-4">
       <div className="w-[70%]  ">
@@ -25,50 +36,50 @@ const DetailPost = () => {
           }
         />
         <div className="bg-white rounded-md shadow-md p-4">
-        <div className="flex flex-col gap-2">
-          <h2 className="text-xl font-bold text-red-600 my-2">
-            {posts[0]?.title}
-          </h2>
-          <div className="flex items-center gap-2">
-            <span>Chuyên mục:</span>
-            <span className="text-blue-600 underline font-medium hover:text-orange-600 cursor-pointer">
-              {posts[0]?.overviews?.area}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <HiLocationMarker color="#2563eb" />
-            <span>{posts[0]?.address}</span>
-          </div>
-          <div className="flex items-center justify-between ">
-            <span className="flex items-center gap-1">
-              <TbReportMoney />
-              <span className="font-semibold text-lg text-green-600">
-                {posts[0]?.attributes?.price}
+          <div className="flex flex-col gap-2">
+            <h2 className="text-xl font-bold text-red-600 my-2">
+              {posts[0]?.title}
+            </h2>
+            <div className="flex items-center gap-2">
+              <span>Chuyên mục:</span>
+              <span onClick={handleFilterLabel} className="text-blue-600 underline font-medium hover:text-orange-600 cursor-pointer">
+                {posts[0]?.labelData?.value}
               </span>
-            </span>
-            <span className="flex items-center gap-1">
-              <RiCrop2Line />
-              <span>{posts[0]?.attributes?.acreage}</span>
-            </span>
-            <span className="flex items-center gap-1">
-              <BsStopwatch />
-              <span>{posts[0]?.attributes?.published}</span>
-            </span>
-            <span className="flex items-center gap-1">
-              <BsHash />
-              <span>{posts[0]?.attributes?.hashtag}</span>
-            </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <HiLocationMarker color="#2563eb" />
+              <span>{posts[0]?.address}</span>
+            </div>
+            <div className="flex items-center justify-between ">
+              <span className="flex items-center gap-1">
+                <TbReportMoney />
+                <span className="font-semibold text-lg text-green-600">
+                  {posts[0]?.attributes?.price}
+                </span>
+              </span>
+              <span className="flex items-center gap-1">
+                <RiCrop2Line />
+                <span>{posts[0]?.attributes?.acreage}</span>
+              </span>
+              <span className="flex items-center gap-1">
+                <BsStopwatch />
+                <span>{posts[0]?.attributes?.published}</span>
+              </span>
+              <span className="flex items-center gap-1">
+                <BsHash />
+                <span>{posts[0]?.attributes?.hashtag}</span>
+              </span>
+            </div>
           </div>
-        </div>
-        <div className="mt-8">
-          <h3 className="font-semibold text-xl my-4">Thông tin mô tả</h3>
-          <div className="flex flex-col gap-3">
-            {posts[0]?.description &&
-              JSON.parse(posts[0].description)?.map((item, index) => {
-                return <span key={index}>{item}</span>;
-              })}
+          <div className="mt-8">
+            <h3 className="font-semibold text-xl my-4">Thông tin mô tả</h3>
+            <div className="flex flex-col gap-3">
+              {posts[0]?.description &&
+                JSON.parse(posts[0].description)?.map((item, index) => {
+                  return <span key={index}>{item}</span>;
+                })}
+            </div>
           </div>
-        </div>
           <div className="mt-8">
             <h3 className="font-semibold text-xl my-4">Đặc điểm tin đăng</h3>
             <table className="w-full">
@@ -96,19 +107,17 @@ const DetailPost = () => {
                 <tr className="w-full bg-gray-200">
                   <td className="p-2">Ngày đăng</td>
                   <td className="p-2">{posts[0]?.overviews?.created}</td>
-
                 </tr>
                 <tr className="w-full">
                   <td className="p-2">Ngày hết hạn</td>
                   <td className="p-2">{posts[0]?.overviews?.expired}</td>
-
                 </tr>
               </tbody>
             </table>
           </div>
-        <div className="mt-8">
-        <h3 className="font-semibold text-xl my-4">Thông tin liên hệ</h3>
-        <table className="w-full">
+          <div className="mt-8">
+            <h3 className="font-semibold text-xl my-4">Thông tin liên hệ</h3>
+            <table className="w-full">
               <tbody className="w-full">
                 <tr className="w-full">
                   <td className="p-2">Liên hệ</td>
@@ -122,17 +131,17 @@ const DetailPost = () => {
                   <td className="p-2">Zalo</td>
                   <td className="p-2">{posts[0]?.user?.zalo}</td>
                 </tr>
-                
               </tbody>
             </table>
-        </div>
-        <div className="mt-8">
-        <h3 className="font-semibold text-xl my-4">Thông tin liên hệ</h3>
-
-        </div>
+          </div>
+          
         </div>
       </div>
-      <div className="w-[30%]">content</div>
+      <div className="w-[30%] flex flex-col gap-8">
+        <Boxinfo userData={posts[0]?.user}/>
+        <RelatedPost/>
+        <RelatedPost newPost/>
+      </div>
     </div>
   );
 };

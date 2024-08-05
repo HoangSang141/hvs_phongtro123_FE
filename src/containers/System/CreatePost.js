@@ -101,7 +101,7 @@ const CreatePost = ({ isEdit }) => {
         finalPayload.postId = dataEdit?.id
         finalPayload.attributesId = dataEdit?.attributesId
         finalPayload.imagesId = dataEdit?.imagesId
-        finalPayload.overviewId = dataEdit?.overviewId
+        finalPayload.overviewId = dataEdit?.overviews?.id
 
         const response = await apiUpdatePost(finalPayload)
         console.log(response);
@@ -123,7 +123,8 @@ const CreatePost = ({ isEdit }) => {
           Swal.fire("Oop!", "Có lỗi gì đó", "error");
         }
     }
-    console.log(finalPayload)
+    console.log(finalPayload);
+    console.log(dataEdit);
   }
   };
   const resetPayload=()=>{
@@ -223,10 +224,9 @@ const CreatePost = ({ isEdit }) => {
             bgColor="bg-green-600"
             textColor="text-white"
           />
-          <div className="h-[500px]"></div>
+          <div className="h-[100px]"></div>
         </div>
-        <div className="w-[30%] flex-none">
-          maps <Loading />
+        <div className="w-[20%] flex-none">
         </div>
       </div>
     </div>

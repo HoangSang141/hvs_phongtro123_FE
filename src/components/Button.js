@@ -8,6 +8,7 @@ const Button = ({
   onClick,
   fullwidth,
   px,
+  IcBefore
 }) => {
   return (
     <button
@@ -17,6 +18,7 @@ const Button = ({
       } outline-none  rounded-md hover:underline flex items-center justify-center gap-1`}
       onClick={onClick}
     >
+      {IcBefore && <span> <IcAfter /></span>}
       <span className="text-center">{text}</span>
       {IcAfter && <span> <IcAfter /></span>}
       </button>

@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { path } from "../ultis/constant";
 import { formatVietnameseToString } from "../ultis/Common/formatVietnameseToString";
 
-const indexs = [0, 1, 2, 3];
-
 const { GrStar, RiHeartLine, RiHeartFill, BsBookmarkStarFill } = icons;
 
 const Item = ({
@@ -36,7 +34,7 @@ const Item = ({
       >
         {images.length > 0 &&
           images
-            .filter((i, index) => indexs.some((i) => i === index))
+            .filter((i, index) => [...Array(4).keys()].some((i) => i === index))
             ?.map((i, index) => {
               return (
                 <img
@@ -51,7 +49,7 @@ const Item = ({
           {`${images.length} ảnh`}
         </span>
         <span
-          className="text-white absolute right-3 bottom-2"
+          className="text-white absolute right-5 bottom-2"
           onMouseEnter={() => setIsHoverHeart(true)}
           onMouseLeave={() => setIsHoverHeart(false)}
         >
@@ -102,18 +100,20 @@ const Item = ({
             <p>{user.name}</p>
           </div>
           <div className="flex items-center gap-1">
-            <button
-              type="button"
+            <a
+              href="/"
+              target="_blank"
               className="bg-blue-700 text-white p-1 rounded-md"
             >
               {`Gọi ${user?.phone}`}
-            </button>
-            <button
-              type="button"
+            </a>
+            <a
+              href={`https://zalo.me/${user?.zalo}`}
+              target="_blank"
               className="text-blue-700 px-1 rounded-md border border-blue-700"
             >
               Nhắn zalo
-            </button>
+            </a>
           </div>
         </div>
       </div>

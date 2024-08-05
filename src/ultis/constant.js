@@ -28,15 +28,18 @@ export const location = [
     id: "hcm",
     name: "Phòng trọ Hồ Chí Minh",
     image: "https://phongtro123.com/images/location_hcm.jpg",
+    provinceCode:'CUID'
   },
   {
     id: "hn",
     name: "Phòng trọ Hà Nội",
     image: "https://phongtro123.com/images/location_hn.jpg",
+    provinceCode:'NDOE'
   },
   {
     id: "dn",
     name: "Phòng trọ Đà Nẵng",
     image: "https://phongtro123.com/images/location_dn.jpg",
+    provinceCode:'NNAE'
   },
 ];

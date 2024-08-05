@@ -7,6 +7,8 @@ import {
   BsCameraFill,
   BsStopwatch,
   BsHash,
+  BsDot,
+  BsTelephoneFill,
 } from "react-icons/bs";
 import { HiOutlineLocationMarker, HiLocationMarker } from "react-icons/hi";
 import { TbReportMoney } from "react-icons/tb";
@@ -17,6 +19,7 @@ import { GrStar, GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import { ImPencil2, ImBin } from "react-icons/im";
 import { AiOutlineLogout } from "react-icons/ai";
 import { BiUserPin } from "react-icons/bi";
+import { SiZalo } from "react-icons/si";
 
 const icons = {
   CiCirclePlus,
@@ -43,6 +46,9 @@ const icons = {
   HiLocationMarker,
   BsStopwatch,
   BsHash,
+  BsDot,
+  BsTelephoneFill,
+  SiZalo,
 };
 
 export default icons;

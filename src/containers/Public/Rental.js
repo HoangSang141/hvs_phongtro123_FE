@@ -21,7 +21,6 @@ const Rental = () => {
       setCategoryCode(category.code);
     }
   }, [location]);
-  console.log(categoryCode);
   return (
     <div className=" w-full flex flex-col gap-3">
       <div>

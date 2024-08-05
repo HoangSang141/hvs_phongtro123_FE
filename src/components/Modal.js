@@ -93,7 +93,10 @@ const Modal = ({
   const handleBeforeSubmit = (e) => {
     let min = percent1 <= percent2 ? percent1 : percent2;
     let max = percent1 <= percent2 ? percent2 : percent1;
-    let arrMinMax = [convert100toTarget(min), convert100toTarget(max)];
+    let arrMinMax =
+      percent1 === percent2 && percent1 === 100
+        ? [convert100toTarget(min), 9999]
+        : [convert100toTarget(min), convert100toTarget(max)];
     // const gaps =
     //   name === "price"
     //     ? getCodes(arrMinMax, content)
@@ -104,9 +107,11 @@ const Modal = ({
       e,
       {
         [`${name}Number`]: arrMinMax,
-        [name]: `Từ ${convert100toTarget(min)}-${convert100toTarget(max)} ${
-          name === "price" ? "triệu" : "m2"
-        }`,
+        [name]: `Từ ${convert100toTarget(min)}${
+          percent1 === percent2 && percent1 === 100
+            ? ""
+            : `- ${convert100toTarget(max)}`
+        } ${name === "price" ? "triệu" : "m2"} ${(percent1 === percent2 && percent1 === 100)? 'trở lên': ''}`,
       },
       {
         [`${name}Arr`]: [min, max],

@@ -26,7 +26,7 @@ const Header = () => {
   }, [searchParams.get("page")]);
 
   return (
-    <div ref={headerRef} className="w-[70%]">
+    <div ref={headerRef} className="w-[80%]">
       <div className="w-full flex items-center justify-between ">
         <Link to={"/"}>
           <img
@@ -97,6 +97,7 @@ const Header = () => {
             textColor="text-white"
             bgColor="bg-secondary2"
             IcAfter={CiCirclePlus}
+            onClick={()=>navigate('/he-thong/tao-moi-bai-dang')}
           />
         </div>
       </div>
