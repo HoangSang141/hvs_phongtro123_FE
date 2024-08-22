@@ -12,7 +12,7 @@ import { resetDataEdit } from "../../store/actions";
 const { BsCameraFill, ImBin } = icons;
 
 const CreatePost = ({ isEdit }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { dataEdit } = useSelector((state) => state.post);
   const [payload, setPayload] = useState(() => {
     const initData = {
@@ -20,11 +20,15 @@ const CreatePost = ({ isEdit }) => {
       title: dataEdit?.title || "",
       priceNumber: dataEdit?.priceNumber * 1000000 || 0,
       areaNumber: dataEdit?.areaNumber || 0,
-      images: dataEdit?.images?.image ? JSON.parse(dataEdit?.images?.image) : "",
+      images: dataEdit?.images?.image
+        ? JSON.parse(dataEdit?.images?.image)
+        : "",
       address: dataEdit?.address || "",
       priceCode: dataEdit?.priceCode || "",
       areaCode: dataEdit?.areaCode || "",
-      description: dataEdit?.description ?  JSON.parse(dataEdit?.description) : "",
+      description: dataEdit?.description
+        ? JSON.parse(dataEdit?.description)
+        : "",
       target: dataEdit?.overviews?.target || "",
       province: dataEdit?.province || "",
     };
@@ -32,13 +36,13 @@ const CreatePost = ({ isEdit }) => {
   });
   const [imagesPreview, setImagesPreview] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { prices, areas, categories, provinces } = useSelector(
+  const { prices, areas, categories } = useSelector(
     (state) => state.app
   );
   const { currentData } = useSelector((state) => state.user);
   const [invalidFields, setInvalidFields] = useState([]);
 
-  useEffect(() => {
+  useEffect(() => { 
     if (dataEdit) {
       let images = JSON.parse(dataEdit?.images?.image);
       images && setImagesPreview(images);
@@ -95,54 +99,60 @@ const CreatePost = ({ isEdit }) => {
         categories?.find((item) => item.code === payload?.categoryCode)?.value
       } ${payload?.address?.split(",")[0]}`,
     };
+    
     const result = validate(finalPayload, setInvalidFields);
     if (result === 0) {
-      if(dataEdit && isEdit) {
-        finalPayload.postId = dataEdit?.id
-        finalPayload.attributesId = dataEdit?.attributesId
-        finalPayload.imagesId = dataEdit?.imagesId
-        finalPayload.overviewId = dataEdit?.overviews?.id
+      if (dataEdit && isEdit) {
+        finalPayload.postId = dataEdit?.id;
+        finalPayload.attributesId = dataEdit?.attributes;
+        finalPayload.imagesId = dataEdit?.imagesId;
+        finalPayload.overviewId = dataEdit?.overviews?.id;
 
-        const response = await apiUpdatePost(finalPayload)
+        const response = await apiUpdatePost(finalPayload);
         console.log(response);
         if (response?.data.err === 0) {
-          Swal.fire("Thành công", "Đã chỉnh sửa bài đăng thành công", "success").then(() => {
-            resetPayload()
-            dispatch(resetDataEdit())
+          Swal.fire(
+            "Thành công",
+            "Đã chỉnh sửa bài đăng thành công",
+            "success"
+          ).then(() => {
+            resetPayload();
+            dispatch(resetDataEdit());
           });
-      } else {
+        } else {
           Swal.fire("Oop!", "Có lỗi gì đó", "error");
         }
-      }else{
+      } else {
         const response = await apiCreatePost(finalPayload);
         if (response?.data.err === 0) {
-          Swal.fire("Thành công", "Đã thêm bài đăng mới", "success").then(() => {
-            resetPayload()
-          });
-      } else {
+          Swal.fire("Thành công", "Đã thêm bài đăng mới", "success").then(
+            () => {
+              resetPayload();
+            }
+          );
+        } else {
           Swal.fire("Oop!", "Có lỗi gì đó", "error");
         }
+      }
+      console.log(finalPayload);
+      console.log(dataEdit);
     }
-    console.log(finalPayload);
-    console.log(dataEdit);
-  }
   };
-  const resetPayload=()=>{
-   setPayload({
-    categoryCode: "",
-    title: "",
-    priceNumber: 0,
-    areaNumber: 0,
-    images: "",
-    address: "",
-    priceCode: "",
-    areaCode: "",
-    description: "",
-    target: "",
-    province: "",
-  });
-}
-    
+  const resetPayload = () => {
+    setPayload({
+      categoryCode: "",
+      title: "",
+      priceNumber: 0,
+      areaNumber: 0,
+      images: "",
+      address: "",
+      priceCode: "",
+      areaCode: "",
+      description: "",
+      target: "",
+      province: "",
+    });
+  };
 
   return (
     <div className="px-6">
@@ -226,8 +236,7 @@ const CreatePost = ({ isEdit }) => {
           />
           <div className="h-[100px]"></div>
         </div>
-        <div className="w-[20%] flex-none">
-        </div>
+        <div className="w-[20%] flex-none"></div>
       </div>
     </div>
   );

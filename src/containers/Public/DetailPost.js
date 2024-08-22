@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPostsLimit } from "../../store/actions";
 import { Slider } from "../../components";
 import icons from "../../ultis/icons";
-import {Boxinfo, RelatedPost} from '../../components';
+import { Boxinfo, RelatedPost } from "../../components";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { path } from "../../ultis/constant";
 
@@ -14,19 +14,23 @@ const { HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch, BsHash } =
 const DetailPost = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const { posts } = useSelector((state) => state.post);
   useEffect(() => {
     postId && dispatch(getPostsLimit({ id: postId }));
   }, [postId]);
-  const handleFilterLabel=()=>{
-    const titleSearch=`Tìm kiếm tin đăng theo chuyên mục ${posts[0]?.labelData?.value}`
-    navigate({
-      pathname: `/${path.SEARCH }`,
-      search: createSearchParams({labelCode:posts[0]?.labelData?.code}).toString(),
-    },{state:{titleSearch}});
-    
-  }
+  const handleFilterLabel = () => {
+    const titleSearch = `Tìm kiếm tin đăng theo chuyên mục ${posts[0]?.labelData?.value}`;
+    navigate(
+      {
+        pathname: `/${path.SEARCH}`,
+        search: createSearchParams({
+          labelCode: posts[0]?.labelData?.code,
+        }).toString(),
+      },
+      { state: { titleSearch } }
+    );
+  };
   return (
     <div className="w-full flex gap-4">
       <div className="w-[70%]  ">
@@ -42,7 +46,10 @@ const DetailPost = () => {
             </h2>
             <div className="flex items-center gap-2">
               <span>Chuyên mục:</span>
-              <span onClick={handleFilterLabel} className="text-blue-600 underline font-medium hover:text-orange-600 cursor-pointer">
+              <span
+                onClick={handleFilterLabel}
+                className="text-blue-600 underline font-medium hover:text-orange-600 cursor-pointer"
+              >
                 {posts[0]?.labelData?.value}
               </span>
             </div>
@@ -75,9 +82,22 @@ const DetailPost = () => {
             <h3 className="font-semibold text-xl my-4">Thông tin mô tả</h3>
             <div className="flex flex-col gap-3">
               {posts[0]?.description &&
-                JSON.parse(posts[0].description)?.map((item, index) => {
-                  return <span key={index}>{item}</span>;
-                })}
+                (() => {
+                  const parsedDescription = JSON.parse(posts[0].description);
+                  if (Array.isArray(parsedDescription)) {
+                    return parsedDescription.map((item, index) => (
+                      <span key={index}>{item}</span>
+                    ));
+                  } else if (typeof parsedDescription === "object") {
+                    return Object.keys(parsedDescription).map((key, index) => (
+                      <span key={index}>
+                        {key}: {parsedDescription[key]}
+                      </span>
+                    ));
+                  } else {
+                    return <span>{parsedDescription}</span>;
+                  }
+                })()}
             </div>
           </div>
           <div className="mt-8">
@@ -134,13 +154,12 @@ const DetailPost = () => {
               </tbody>
             </table>
           </div>
-          
         </div>
       </div>
       <div className="w-[30%] flex flex-col gap-8">
-        <Boxinfo userData={posts[0]?.user}/>
-        <RelatedPost/>
-        <RelatedPost newPost/>
+        <Boxinfo userData={posts[0]?.user} />
+        <RelatedPost />
+        <RelatedPost newPost />
       </div>
     </div>
   );
